@@ -103,12 +103,12 @@ E-Commerce-SQL-Data-Analysis/
  
 --My Analysis & Findings
 
---1.Check the data 
+--1.**Check the data**
 select*
 from customers
 
 
---2 Fetch only the customer ID, first name, and email from the customers table. 
+--2 **Fetch only the customer ID, first name, and email from the customers table.** 
 
 select customer_id,first_name,email
 from customers
