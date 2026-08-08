@@ -105,6 +105,7 @@ E-Commerce-SQL-Data-Analysis/
 
 --1.**Check the data**
 ```sql
+
 select*
 from customers
 ```
