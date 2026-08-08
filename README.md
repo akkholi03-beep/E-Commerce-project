@@ -103,8 +103,10 @@ E-Commerce-SQL-Data-Analysis/
  
 --My Analysis & Findings
 
+```
+
 --1.**Check the data**
-```sql
+
 
 select*
 from customers
