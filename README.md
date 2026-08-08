@@ -105,7 +105,7 @@ E-Commerce-SQL-Data-Analysis/
 
 
 
-###--1.**Check the data**
+## --1.**Check the data**
 ```sql
 
 select*
@@ -126,10 +126,11 @@ where category='clothing'
 ```
 
 --4.Retrieve all orders where the total purchase amount is greater than $500
+```sql
 select *
 from orders
 where total_amount>500
-
+```
 --5.Find all customers who joined the platform after January 1, 2023. 
 select*
 from customers
