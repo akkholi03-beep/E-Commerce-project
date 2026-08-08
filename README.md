@@ -106,158 +106,207 @@ E-Commerce-SQL-Data-Analysis/
 
 
 ## --1.**Check the data**
-```sql
+
 
 select*
 from customers
-```
+
 
 
 ###--2 **Fetch only the customer ID, first name, and email from the customers table.**
-```sql 
+ 
 
 select customer_id,first_name,email
 from customers
 
---3.List all products that belong to the Clothing category. 
+### 3. List all products that belong to the Clothing category.
+```sql
 select *
 from products
 where category='clothing'
-```
 
---4.Retrieve all orders where the total purchase amount is greater than $500
+
+```
+### 4. Retrieve all orders where the total purchase amount is greater than $500
 ```sql
+
 select *
 from orders
 where total_amount>500
+
 ```
---5.Find all customers who joined the platform after January 1, 2023. 
+### 5. Find all customers who joined the platform after January 1, 2023.
+```sql
 select*
 from customers
 where join_date>'2023-01-01'
 
---6.Display the top 5 most expensive products available in the database. 
+```
+### 6. Display the top 5 most expensive products available in the database.
+```sql
 select top 5*
 from products
 order by price desc
 
---7️.List the latest 10 orders placed, sorted by order date in descending order. 
+```
+### 7. .List the latest 10 orders placed, sorted by order date in descending order.
+```sql
 select top 10*
 from orders
 order by order_date desc
 
---8️.Retrieve all orders that have a status of "Completed"
+```
+### 8. .Retrieve all orders that have a status of "Completed"
+```sql
 select*
 from orders
 where order_status='completed'
 
---9.Find all orders that were placed between February 1, 2023, and February 28, 2023. 
+```
+### 9. Find all orders that were placed between February 1, 2023, and February 28, 2023.
+```sql
 select*
 from orders
 where order_date between '2023-02-01' and '2023-02-28'
 
---10.List all products that have a price between $50 and $100.
+```
+### 10. List all products that have a price between $50 and $100.
+```sql
 select *
 from products
 where price between 50 and 100 
 
 
--- Intrmediate questions.
+```
+### Intrmediate Questions.
 
---1.Count the total number of customers in the database. 
+### 1. Count the total number of customers in the database.
+```sql
 select count(*) as total_customer
 from customers
 
---2.Find the average order amount from the orders table. 
+```
+### 2. Find the average order amount from the orders table.
+```sql
 select avg(total_amount) as avg_amount
 from orders
 
---3. Retrieve the highest and lowest priced products from the product list.
+```
+### 3. Retrieve the highest and lowest priced products from the product list.
+```sql
 select max(price) as highest_price,min(price) as lowest_price
 from products
 
---4.Count the number of products in each category, grouping by category. 
+```
+### 4. Count the number of products in each category, grouping by category.
+```sql
 select category,count(*) as total_product
 from products
 group by category
 
---5.Calculate the total revenue generated from all orders. 
+```
+### 5. Calculate the total revenue generated from all orders.
+```sql
 select sum(total_amount) as total_amount
 from orders
 
---6. Find the total number of orders placed by each customer, sorted by highest to lowest.
+```
+### 6. Find the total number of orders placed by each customer, sorted by highest to lowest.
+```sql
 select customer_id,count(*)as Total_Orders
 from orders
 group by customer_id
 order by Total_Orders desc
 
---7️.Calculate the total revenue generated for each month in 2023.
+```
+### 7. .Calculate the total revenue generated for each month in 2023.
+```sql
 select MONTH(order_date)as month, sum(total_amount) as total_revenue
 from orders
 where year (order_date)=2023
 group by month(order_date)
 order by month
 
---8️. List all customers who have placed more than 5 orders.
+```
+### 8. . List all customers who have placed more than 5 orders.
+```sql
 select customer_id,count(*) as total_orders
 from orders
 group by customer_id
 having count(order_id)>5
 
---9. Identify the most frequently used payment method based on the number of transactions.
+```
+### 9. Identify the most frequently used payment method based on the number of transactions.
+```sql
 select top 1 payment_method, count(*) as total_transactions
 from payments
 group by payment_method
 order by total_transactions desc
 
---10.Find the average product price for each category.
+```
+### 10. Find the average product price for each category.
+```sql
 select category,avg(price) as avg_price
 from products
 group by category
 
 
--- Advanced questions.
+```
+### Advanced Questions.
 
---1.Retrieve all order details along with the customer’s first and last name
+### 1. Retrieve all order details along with the customer’s first and last name
+```sql
 select o.*,c.first_name,c.last_name
 from orders as o
 join customers as c
 on o.customer_id=c.customer_id
 
---2.Fetch order items with product names, quantities, and subtotal values
+```
+### 2. Fetch order items with product names, quantities, and subtotal values
+```sql
 select oi.order_item_id, p.product_name,oi.quantity,oi.subtotal
 from order_items as oi
 join products as p
 on oi.product_id=p.product_id
 
---3.List all payment transactions along with the corresponding order details
+```
+### 3. List all payment transactions along with the corresponding order details
+```sql
 select p.*,o.order_id,o.order_date,o.total_amount
 from payments as p
 join orders as o
 on p.order_id=o.order_id
 
---4.Identify customers who have never placed an order
+```
+### 4. Identify customers who have never placed an order
+```sql
 select c.customer_id,c.first_name,c.last_name,o.order_status
 from customers as c
 left join orders as o
 on c.customer_id=o.customer_id
 where o.order_status is null
 
---5.Find all products that have never been purchased (i.e., do not appear in any order).
+```
+### 5. Find all products that have never been purchased (i.e., do not appear in any order).
+```sql
 select p.*
 from products as p
 left join order_items as oi
 on p.product_id=oi.product_id
 where oi.product_id is null
 
---6.Retrieve customers and their total spending by summing up all their orders.
+```
+### 6. Retrieve customers and their total spending by summing up all their orders.
+```sql
 select c.customer_id,c.first_name,c.last_name,sum(o.total_amount) as total_spending
 from customers as c
 join orders as o
 on c.customer_id=o.customer_id
 group by c.customer_id,c.first_name,c.last_name
 
---7️.Get the total number of products ordered by each customer. 
+```
+### 7. .Get the total number of products ordered by each customer.
+```sql
 select c.customer_id,c.first_name,c.last_name,sum(oi.quantity) as total_products
 from orders as o
 join customers as c
@@ -266,7 +315,9 @@ join order_items as oi
 on o.order_id=oi.order_id
 group by c.customer_id,c.first_name,c.last_name
 
---8️.Display all orders along with the names of the products included in each order.
+```
+### 8. .Display all orders along with the names of the products included in each order.
+```sql
 select o.order_id,p.product_name
 from order_items as oi
 join products as p
@@ -274,14 +325,18 @@ on oi.product_id=p.product_id
 join orders as o
 on oi.order_id=o.order_id
 
---9. Find orders that do not have any associated payments recorded.
+```
+### 9. Find orders that do not have any associated payments recorded.
+```sql
 select o.*
 from payments as p
 join orders as o
 on p.order_id=o.order_id
 where p.payment_id is null
 
---10.Retrieve customers along with the last date they placed an order.
+```
+### 10. Retrieve customers along with the last date they placed an order.
+```sql
 select c.customer_id,c.first_name,c.last_name,max(o.order_date) as last_order_date
 from customers as c
 join orders as o
@@ -295,9 +350,11 @@ join orders as o
 on c.customer_id=o.customer_id
 order by o.order_date desc
 
---Subqueries & Advanced Filters 
+```
+### Subqueries & Advanced Filters
 
---1.Find the most expensive product in the store using a subquery.
+### 1. Find the most expensive product in the store using a subquery.
+```sql
 select*
 from products
 where price=
@@ -307,7 +364,9 @@ where price=
 	order by price desc
 )
 
---2. Retrieve the list of customers who have placed at least one order.
+```
+### 2. Retrieve the list of customers who have placed at least one order.
+```sql
 select*
 from customers
 where customer_id in
@@ -316,7 +375,9 @@ where customer_id in
 	from orders
 )
 
--- 3.Display orders where the total amount is greater than the average order amount.
+```
+### 3. Display orders where the total amount is greater than the average order amount.
+```sql
 select*
 from orders
 where total_amount>(
@@ -324,7 +385,9 @@ where total_amount>(
 	from orders
 )
 
---4.Find the cheapest product in each category using a correlated subquery.
+```
+### 4. Find the cheapest product in each category using a correlated subquery.
+```sql
 select *
 from products
 where price=
@@ -334,19 +397,24 @@ where price=
 	where category=category
 )
 
---5.Identify the customer who has placed the highest number of orders. 
+```
+### 5. Identify the customer who has placed the highest number of orders.
+```sql
 select top 1 customer_id,count(order_id) as highest_order
 from orders
 group by customer_id
 order by count(order_id) desc
 
---6.Fetch the second most expensive product using an alternative ranking method.
--- Normal method
+```
+### 6. Fetch the second most expensive product using an alternative ranking method.
+```sql
+```
+### Normal Method
 select top 2*
 from products
 order by price desc
 
---Using subquery
+### Using Subquery
 
 select top 1*
 from(
@@ -356,7 +424,7 @@ order by price desc) as t
 order by price
 
 
--- windows function
+### Windows Function
 
 select*
 from
@@ -366,7 +434,7 @@ from
 ) as p
 where dr=2;
 
---CTE Use
+### Cte Use
 with price as
 (
 	select*,dense_rank() over(order by price desc) as dr
@@ -377,7 +445,8 @@ from price
 where dr=2
 
 
---7️.List all customers who have never made a payment for any order.
+### 7. .List all customers who have never made a payment for any order.
+```sql
 select*
 from customers
 where customer_id in(
@@ -389,7 +458,9 @@ where customer_id in(
 	)
 )
 
---8️.Retrieve all products with stock levels below the average stock quantity.
+```
+### 8. .Retrieve all products with stock levels below the average stock quantity.
+```sql
 select*
 from products
 where stock_quantity<(
@@ -397,7 +468,9 @@ where stock_quantity<(
 	from products
 )
 
---9.Find customers who have spent more than $2000 in total on orders
+```
+### 9. Find customers who have spent more than $2000 in total on orders
+```sql
 select*
 from customers
 where customer_id in
@@ -411,9 +484,11 @@ where customer_id in
 │
 ├── E_commerace Project.sql
 └── README.md
-```
+
 
 ---
+
+```
 
 ## 🎯 Career Goal
 
@@ -424,4 +499,5 @@ I am continuously improving my skills in **SQL, Python, Power BI, and Excel** an
 ---
 
 ⭐ **If you find this project useful, feel free to explore the repository!**
+
 
