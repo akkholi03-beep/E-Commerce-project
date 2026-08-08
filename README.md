@@ -107,6 +107,7 @@ E-Commerce-SQL-Data-Analysis/
 ```sql
 select*
 from customers
+```
 
 
 --2 **Fetch only the customer ID, first name, and email from the customers table.**
@@ -119,6 +120,7 @@ from customers
 select *
 from products
 where category='clothing'
+```
 
 --4.Retrieve all orders where the total purchase amount is greater than $500
 select *
