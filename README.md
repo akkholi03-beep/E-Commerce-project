@@ -407,25 +407,25 @@ order by count(order_id) desc
 
 ```
 ### 6. Fetch the second most expensive product using an alternative ranking method.
-```sql
-```
+
 ### Normal Method
+```sql
 select top 2*
 from products
 order by price desc
-
+```
 ### Using Subquery
-
+```sql
 select top 1*
 from(
 	select top 2 *
 from products
 order by price desc) as t
 order by price
-
+```
 
 ### Windows Function
-
+```sql
 select*
 from
 (
@@ -443,7 +443,7 @@ with price as
 select*
 from price
 where dr=2
-
+```
 
 ### 7. .List all customers who have never made a payment for any order.
 ```sql
